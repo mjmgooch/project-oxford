@@ -15,6 +15,13 @@ var oxford = require('project-oxford'),
     client = new oxford.Client('7fb073s72bh72663y5ddh129m12e598d');
 ```
 
+If you are using a 30 day free trial of the cognitive services you may need to explicitly specify your region, you can find a list of regions on the Cognitive Services website.
+
+```
+var oxford = require('project-oxford'),
+  client = new oxford.Client('7fb073s72bh72663y5ddh129m12e598d', oxford.region.WEST_CENTRAL_US);
+```
+
 Now that you got your client running, you're ready to do some pretty smart stuff. Have a picture of a person and want a computed guess of their age and gender?
 
 ```
@@ -113,6 +120,7 @@ For the full documentation, please see the API reference below.
             * [~grouping(faces)](#Client.face..grouping) ⇒ <code>Promise</code>
             * [~identify(faces, personGroupId, maxNumOfCandidatesReturned, confidenceThreshold)](#Client.face..identify) ⇒ <code>Promise</code>
             * [~verify(faces)](#Client.face..verify) ⇒ <code>Promise</code>
+            * [~verifyFaceToPerson(faceId,personGroupId,personId)](#Client.face..verifyFaceToPerson) ⇒ <code>Promise</code>
     * [.text](#Client.text) : <code>object</code>
         * [~proof(text, preContextText, postContextText, market)](#Client.text..proof) ⇒ <code>Promise</code>
         * [~spellCheck(text, preContextText, postContextText, market)](#Client.text..spellCheck) ⇒ <code>Promise</code>
@@ -214,6 +222,7 @@ Analyze the emotions of one or more faces in an image.
         * [~grouping(faces)](#Client.face..grouping) ⇒ <code>Promise</code>
         * [~identify(faces, personGroupId, maxNumOfCandidatesReturned, confidenceThreshold)](#Client.face..identify) ⇒ <code>Promise</code>
         * [~verify(faces)](#Client.face..verify) ⇒ <code>Promise</code>
+        * [~verifyFaceToPerson(faceId,personGroupId,personId)](#Client.face..verifyFaceToPerson) ⇒ <code>Promise</code>
 
 <a name="Client.face.faceList"></a>
 
@@ -684,6 +693,22 @@ For the scenarios that are sensitive to accuracy please use with own judgment.
 | Param | Type | Description |
 | --- | --- | --- |
 | faces | <code>Array.&lt;string&gt;</code> | Array containing two faceIds to use |
+
+<a name="Client.text"></a>
+
+#### face~verifyFaceToPerson(faceId,personGroupId,personId) ⇒ <code>Promise</code>
+Analyzes a detected face against an existing person to determines whether they are from the same person
+Verification works well for frontal and near-frontal faces.
+For the scenarios that are sensitive to accuracy please use with own judgment.
+
+**Kind**: inner method of <code>[face](#Client.face)</code>  
+**Returns**: <code>Promise</code> - - Promise resolving with the resulting JSON  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| faceId | <code>Array.&lt;string&gt;</code> | Array containing a faceId from Detect |
+| personGroupId | <code>string</code> | The target person's person group. |
+| personId | <code>string</code> | The target person's id. |
 
 <a name="Client.text"></a>
 

@@ -328,6 +328,35 @@ var face = function face(key, host) {
     }
 
     /**
+     * Simmilar to verify but this is a 'face to person' verification
+     * Analyzes a detected face against an existing person to determines whether they are from the same person
+     * Verification works well for frontal and near-frontal faces.
+     * For the scenarios that are sensitive to accuracy please use with own judgment.
+     * @param  {string} faceId        - string containing a single faceId
+     * @param  {string} personGroupId - Id of person group from which faces will be identified
+     * @param  {string} personId      - Id of the person to try and verify against
+     * @return {promise}               [description]
+     */
+    function verifyFaceToPerson(faceId, personGroupId, personId) {
+        return new _Promise(function (resolve, reject) {
+            var body = {
+                faceId: faceId,
+                personGroupId: personGroupId,
+                personId: personId
+            };
+
+            request.post({
+                uri: host + rootPath + verifyPath,
+                headers: { 'Ocp-Apim-Subscription-Key': key },
+                json: true,
+                body: body
+            }, function (error, response) {
+                return _return(error, response, resolve, reject);
+            });
+        });
+    }
+
+    /**
      * @namespace
      * @memberof Client.face
      */
@@ -842,6 +871,7 @@ var face = function face(key, host) {
         grouping: grouping,
         identify: identify,
         verify: verify,
+        verifyFaceToPerson: verifyFaceToPerson,
         faceList: faceList,
         personGroup: personGroup,
         person: person
